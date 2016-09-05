@@ -71,6 +71,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/fingerprint.idc:system/usr/idc/fingerprint.idc
+
+PRODUCT_PACKAGES += \
+    fingerprint.kl \
+
 # Gello
 PRODUCT_PACKAGES += \
     Gello
@@ -84,6 +90,14 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes \
     libebtc
+
+# KEYPAD
+PRODUCT_PACKAGES += \
+    usbaudio.kl
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/cyttsp4_mt.idc:system/usr/idc/cyttsp4_mt.idc \
+    $(LOCAL_PATH)/prebuilts/HUAWEI_HUAWEI_GLASS.idc:system/usr/idc/HUAWEI_HUAWEI_GLASS.idc
 
 # Ramdisk
 PRODUCT_PACKAGES += \
