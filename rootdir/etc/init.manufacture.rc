@@ -96,15 +96,11 @@ on early-boot
 
 on boot
 
-
-
-
-
 service atcmdserver  /system/bin/atcmdserver
     class main
     disabled
 
-service oeminfo_nvm /sbin/oeminfo_nvm_server
+service oeminfo_nvm /system/bin/oeminfo_nvm_server
     class core
     critical
     ioprio rt 4
