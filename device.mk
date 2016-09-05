@@ -85,6 +85,27 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
+# Ramdisk
+PRODUCT_PACKAGES += \
+    init.61259.rc \
+    init.audio.rc \
+    init.balong_modem.rc \
+    init.chip.usb.rc \
+    init.connectivity.bcm43455.rc \
+    init.connectivity.gps.rc \
+    init.connectivity.rc \
+    init.device.rc \
+    init.extmodem.rc \
+    init.hi3650.rc \
+    init.hi3650.usb.rc \
+    init.hisi.rc \
+    init.manufacture.rc \
+    init.platform.rc \
+    init.post-fs-data.rc \
+    init.target.rc \
+    init.tee.rc \
+    ueventd.hi3650.rc
+
 # RIL
 PRODUCT_PACKAGES += \
     libxml2
