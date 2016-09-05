@@ -64,6 +64,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # CMHW
 BOARD_HARDWARE_CLASS := \
     hardware/cyanogen/cmhw
+TARGET_TAP_TO_WAKE_NODE := /sys/touchscreen/easy_wakeup_gesture
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
