@@ -43,6 +43,8 @@ TARGET_BOOTLOADER_BOARD_NAME := VIE,VIE-L09,VIE-L29,VIE-AL10,VIE-TL00,VIE-DL00,V
 # Audio
 USE_CUSTOM_AUDIO_POLICY := 1
 BOARD_USES_ALSA_AUDIO := true
+TARGET_PROVIDES_LIBAUDIO := true
+BOARD_USES_GENERIC_AUDIO := false
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := hi3650
@@ -50,6 +52,29 @@ TARGET_NO_BOOTLOADER := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
+
+# Bootanimation
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+
+# Camera
+USE_CAMERA_STUB := false
+USE_DEVICE_SPECIFIC_CAMERA := true
+
+# CMHW
+BOARD_HARDWARE_CLASS := \
+    hardware/cyanogen/cmhw
+
+# Crypto
+TARGET_HW_DISK_ENCRYPTION := true
+
+# Display
+USE_OPENGL_RENDERER := true
+TARGET_HARDWARE_3D := true
+
+# GPS
+USE_DEVICE_SPECIFIC_GPS := true
+TARGET_NO_RPC := true
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00478000
@@ -62,6 +87,15 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 
 TARGET_KERNEL_SOURCE := kernel/huawei/vie
 TARGET_KERNEL_CONFIG := cm_hi3650_defconfig
+
+# Keymaster
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+
+# Keystore
+TARGET_PROVIDES_KEYMASTER := true
+
+# Lights
+TARGET_PROVIDES_LIBLIGHT := true
 
 # Partitions
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -82,6 +116,9 @@ TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.hi3650
+
+# Sensors
+USE_SENSOR_MULTI_HAL := true
 
 # inherit from the proprietary version
 -include vendor/huawei/vie/BoardConfigVendor.mk
