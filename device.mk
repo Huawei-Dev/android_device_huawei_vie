@@ -37,6 +37,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(LOCAL_PATH)/prebuilts/audio_policy.conf:system/etc/audio_policy.conf
 
+# Thermal engine
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/thermald.xml:system/etc/thermald.xml \
+    $(LOCAL_PATH)/prebuilts/thermald_performance.xml:system/etc/thermald_performance.xml \
+    $(LOCAL_PATH)/prebuilts/thermald_qcoff.xml:system/etc/thermald_qcoff.xml \
+    $(LOCAL_PATH)/prebuilts/thermald_vr.xml:system/etc/thermald_vr.xml
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
