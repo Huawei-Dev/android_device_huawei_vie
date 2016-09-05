@@ -5,11 +5,14 @@
 #TODO: Add 'check' as fs_mgr_flags with data partition.
 # Currently we dont have e2fsck compiled. So fs check would failed.
 
-#<src>                                         <mnt_point>        <type>   <mnt_flags and options>				    <fs_mgr_flags>
-dev/block/platform/hi_mci.0/by-name/system     /system            ext4     ro,barrier=1	                                            wait,continue
-dev/block/platform/hi_mci.0/by-name/userdata   /data              ext4     nosuid,nodev,barrier=1,noauto_da_alloc,discard	    wait,check,encryptable=footer
-dev/block/platform/hi_mci.0/by-name/userdata   /data	          f2fs     rw,discard,nosuid,nodev,noatime,nodiratime,inline_xattr  wait,check,encryptable=footer
+#<src>                                          <mnt_point>        <type>   <mnt_flags and options>				     <fs_mgr_flags>
+/dev/block/platform/hi_mci.0/by-name/system     /system            ext4     ro,barrier=1	                                     wait,continue
+/dev/block/platform/hi_mci.0/by-name/userdata   /data              ext4     nosuid,nodev,barrier=1,noauto_da_alloc,discard	     wait,check,encryptable=footer
+/dev/block/platform/hi_mci.0/by-name/userdata   /data	           f2fs     rw,discard,nosuid,nodev,noatime,nodiratime,inline_xattr  wait,check,encryptable=footer
+/dev/block/platform/hi_mci.0/by-name/cache      /cache             ext4     nosuid,nodev,barrier=1                                   wait,check,formattable,continue
+/dev/block/platform/hi_mci.0/by-name/boot       /boot              emmc     defaults                                                 recoveryonly
+/dev/block/platform/hi_mci.0/by-name/recovery   /recovery          emmc     defaults                                                 recoveryonly
 
 
-/devices/hi_mci.1/mmc_host/mmc1/*               auto              auto      defaults                                      	    wait,voldmanaged=sdcard1:auto,encryptable=userdata
-/devices/ff200000.hisi_usb/ff100000.dwc3/*      auto              auto      defaults                                      	    wait,voldmanaged=usb:auto
+/devices/hi_mci.1/mmc_host/mmc1/*               auto              auto      defaults                                      	     wait,voldmanaged=sdcard1:auto,encryptable=userdata
+/devices/ff200000.hisi_usb/ff100000.dwc3/*      auto              auto      defaults                                      	     wait,voldmanaged=usb:auto
