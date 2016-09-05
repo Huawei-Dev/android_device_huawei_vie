@@ -104,10 +104,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Gello
 
-# HW disk encryption
-PRODUCT_PACKAGES += \
-    libcryptfs_hw
-
 # IPv6
 PRODUCT_PACKAGES += \
     ebtables \
