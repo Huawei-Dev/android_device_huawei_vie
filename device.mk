@@ -120,6 +120,7 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
+    fstab.hi3650 \
     init.61259.rc \
     init.audio.rc \
     init.balong_modem.rc \
