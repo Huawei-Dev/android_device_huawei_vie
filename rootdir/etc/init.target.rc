@@ -17,6 +17,10 @@ on init
     chown system system /dev/flp
     chmod 0660 /dev/flp
 
+on fs
+
+    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/libdmd.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so
+
 on load_all_props_action
     load_all_props
     start logd
