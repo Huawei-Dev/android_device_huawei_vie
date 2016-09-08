@@ -94,10 +94,7 @@ on boot
 
     chown radio radio /proc/modemstatus
 
-
-
-
-service ril-daemon /system/bin/rild
+service_redefine ril-daemon /system/bin/rild
     disabled
     class core
     socket rild stream 660 root radio
