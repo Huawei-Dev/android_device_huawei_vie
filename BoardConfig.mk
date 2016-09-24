@@ -26,14 +26,16 @@ TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a53
-
-TARGET_USES_64_BIT_BINDER := true
+TARGET_2ND_CPU_VARIANT := cortex-a15
 
 TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_HAVE_NEON := true
+ARCH_ARM_HIGH_OPTIMIZATION := true
+TARGET_USES_64_BIT_BINDER := true
 
 TARGET_BOARD_PLATFORM := hi3650
+BOARD_VENDOR_PLATFORM := hi3650
 
 ENABLE_CPUSETS := true
 
@@ -48,9 +50,13 @@ BOARD_USES_GENERIC_AUDIO := false
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := hi3650
 TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/vnd_hi3650.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
@@ -58,16 +64,18 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Camera
 USE_CAMERA_STUB := false
+BOARD_CAMERA_HAVE_ISO := true
+COMMON_GLOBAL_CFLAGS += -DHAVE_ISO
 USE_DEVICE_SPECIFIC_CAMERA := true
 
 # CMHW
 BOARD_HARDWARE_CLASS := \
     hardware/cyanogen/cmhw
-TARGET_TAP_TO_WAKE_NODE := /sys/touchscreen/easy_wakeup_gesture
 
 # Display
 USE_OPENGL_RENDERER := true
 TARGET_HARDWARE_3D := true
+ANDROID_ENABLE_RENDERSCRIPT := true
 
 # GPS
 USE_DEVICE_SPECIFIC_GPS := true
@@ -84,12 +92,6 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 
 TARGET_KERNEL_SOURCE := kernel/huawei/vie
 TARGET_KERNEL_CONFIG := cm_hi3650_defconfig
-
-# Keymaster
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-
-# Keystore
-TARGET_PROVIDES_KEYMASTER := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -114,8 +116,23 @@ TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.hi3650
 
-# Sensors
-USE_SENSOR_MULTI_HAL := true
+# Enable WEBGL
+ENABLE_WEBGL := true
+
+# Wifi
+TARGET_USES_64_BIT_BCMDHD	 := true
+BOARD_WLAN_DEVICE                := bcmdhd
+BOARD_WLAN_DEVICE_REV            := bcm4345
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcm43455_hw.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcm43455_apsta_hw.bin"
+WIFI_DRIVER_FW_PATH_P2P          := "/system/vendor/firmware/fw_bcm43455_hw.bin"
+WIFI_BAND                        := 802_11_ABG
 
 # inherit from the proprietary version
 -include vendor/huawei/vie/BoardConfigVendor.mk

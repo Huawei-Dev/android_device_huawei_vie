@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2016 The CyanogenMod Project <http://www.cyanogenmod.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-void __android_logPower_print(void) {
-    return 0;
-}
+#ifndef _BDROID_BUILDCFG_H
+#define _BDROID_BUILDCFG_H
 
-void __android_janklog_print(void) {
-    return 0;
-}
+#define BTM_DEF_LOCAL_NAME   "VIENNA"
 
-int __android_log_exception_write(void) {
-    return 0;
-}
+#define BLE_INCLUDED TRUE
 
-void __hi_log_print(void) {
-    return 0;
-}
-
-void __android_log_assert(void) {
-    return 0;
-}
+#endif

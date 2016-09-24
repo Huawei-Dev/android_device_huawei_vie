@@ -14,22 +14,10 @@
  * limitations under the License.
  */
 
-void __android_logPower_print(void) {
-    return 0;
-}
+namespace android {
 
-void __android_janklog_print(void) {
-    return 0;
-}
+int DISPLAY_SIZE_DENSITY_VALUE;
+int DISPLAY_SIZE_DENSITY;
 
-int __android_log_exception_write(void) {
-    return 0;
-}
+}; // namespace android
 
-void __hi_log_print(void) {
-    return 0;
-}
-
-void __android_log_assert(void) {
-    return 0;
-}

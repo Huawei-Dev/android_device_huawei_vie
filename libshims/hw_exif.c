@@ -14,22 +14,7 @@
  * limitations under the License.
  */
 
-void __android_logPower_print(void) {
-    return 0;
-}
-
-void __android_janklog_print(void) {
-    return 0;
-}
-
-int __android_log_exception_write(void) {
-    return 0;
-}
-
-void __hi_log_print(void) {
-    return 0;
-}
-
-void __android_log_assert(void) {
-    return 0;
+int exif_entry_gps_initialize()
+{
+	return 0;
 }

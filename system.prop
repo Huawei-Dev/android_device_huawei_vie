@@ -1,8 +1,108 @@
-#
-# from device/hisi/hi3650/system.prop
-#
+# Rild
+rild.libpath1=/system/lib64/libbalong-ril.so
+ro.multi.rild=false
+ro.config.hw_save_pin=true
+rild.libargs3=-m modem2
+ro.telephony.default_network=9,9
+ro.telephony.ril.config=simactivation,sim2gsmonly
+ro.config.default_commril_mode=CLG_MODE
+ro.config.is_start_commril=true
+rild.libargs2=-m modem1
+ro.config.dsds_mode=cdma_gsm
+rild.libpath2=/system/lib64/libbalong-ril-1.so
+ro.config.full_network_support=true
+rild.libpath3=/system/lib64/libbalong-ril-2.so
+ro.config.hw_device_mode=clg_mode
+persist.radio.multisim.config=dsda
+rild.rild1_ready_to_start=false
+rild.libargs=-d /dev/viacomm_cmux
+ro.config.client_number=5
+rild.libargs1=-m modem0
+ro.config.hw_dsda=true
+rild.libpath=/system/lib64/libvia-ril.so
+persist.dsds.enabled=true
+persist.radio.modem.cap=899BD
+ro.config.modem_number=4
 
 ro.opengles.version=196609
 ro.sf.lcd_density=480
 
-audioril.lib=libhuawei-audio-ril.so
+persist.fw.force_adoptable=true
+
+audioril.lib=libbalong_audio_ril.so
+
+ro.bt.bdaddr_path=/data/misc/bluedroid/macbt
+ro.connectivity.chiptype=Broadcom BCM43455
+
+ro.magic.api.version=0.1
+ro.hdmi.service=false
+
+ro.config.hw_music_lp=true
+ro.config.music_lp_vol=true
+ro.tui.service=true
+ro.vr_display.service=true
+
+persist.media.offload.enable=true
+persist.media.usbvoice.enable=true
+persist.media.usbvoice.name=USB-Audio - HUAWEI GLASS
+ro.config.hw_sensorhub=true
+keyguard.no_require_sim=true
+ro.sys.umsdirtyratio=2
+build.hisi_perf_opt=true
+use_sensorhub_labc=false
+bastet.service.enable=true
+sys.refresh.dirty=1
+ro.config.hw_perfhub=true
+
+ro.hwui.texture_cache_size=48
+ro.hwui.texture_cache_flushrate=0.4
+ro.hwui.layer_cache_size=48
+ro.hwui.path_cache_size=32
+ro.hwui.shape_cache_size=2
+ro.hwui.drop_shadow_cache_size=6
+ro.hwui.gradient_cache_size=1
+ro.hwui.text_large_cache_height=1024
+ro.hwui.text_large_cache_width=2048
+ro.hwui.text_small_cache_height=1024
+ro.hwui.text_small_cache_width=1024
+ro.hwui.r_buffer_cache_size=8
+
+ro.config.fm_type=libbcmfm_if
+persist.radio.apm_sim_not_pwdn=1
+persist.sys.dualcards=true
+ril.hw_modem0.rssi=-1
+ril.hw_modem1.rssi=-1
+ro.cellbroadcast.emergencyids=0-65534
+ro.config.hw_disable_cops=true
+ro.config.hw_ecclist_nocard=1+110,6+119,8+118
+ro.config.hw_ecclist_withcard=1+110,6+119,8+118
+ro.config.hw_globalEcc=true
+ro.config.hw_useCtrlSocket=true
+ro.config.updatelocation=true
+ro.ril.ecclist=112,911,#911,*911
+ro.check.modem_network=true
+ro.config.ipv4.mtu=1400
+gsm.fastdormancy.mode=3
+ro.config.hw_hotswap_on=true
+ro.config.hw_cota=true
+
+ro.product.cucc.rtsplive=true
+ro.com.android.mobiledata=true
+
+ro.dual.sim.phone=true
+ro.config.lvm_mode=true
+
+ro.config.signalplus.tas=true
+ro.config.signalplus.xpass=true
+ro.config.linkplus.roaming=true
+ro.config.linkplus.liveupdate=true
+
+hw.display.acl_support=true
+
+media.stagefright.use-awesome=false
+ro.config.hw_dts=true
+ro.config.hw_media_flags=3
+ro.config.widevine_level3=true
+drm.service.enabled=true
+ro.hwcamera.brightness_range=4,178
+ro.game.low_audio_effect=true

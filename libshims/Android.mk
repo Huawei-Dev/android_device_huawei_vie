@@ -20,4 +20,20 @@ LOCAL_MODULE := libshim_cutils
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := hw_exif.c
+LOCAL_MODULE := libshim_exif
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
 
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := hw_gui.cpp
+LOCAL_MODULE := libshim_gui
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := hw_gralloc.c
+LOCAL_MODULE := libshim_gralloc
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)

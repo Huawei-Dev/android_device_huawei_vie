@@ -100,9 +100,12 @@
 /dev/log/events           0662   root       log
 /dev/log/hilog            0662   root       log
 
-/dev/android_hdb          0660   hdb        hdb
-/dev/android_hdb_enable   0660   hdb        hdb
+/dev/android_hdb          0660   adb        adb
+/dev/android_hdb_enable   0660   adb        adb
 
 /dev/hwvr0                0664   root       system
 /dev/hwvr1                0664   root       system
 /dev/hwvrdfu              0660   root       system
+
+/dev/vmodem		  0660   radio	    radio
+/dev/ttyAMA1		  0660   radio	    radio

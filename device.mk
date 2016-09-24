@@ -18,6 +18,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product-if-exists, vendor/huawei/vie/vie-vendor.mk)
 
+# The gps config
+$(call inherit-product, device/common/gps/gps_us_supl.mk)
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -32,10 +35,24 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/vdec_atlas.cfg:system/etc/vdec_atlas.cfg \
+    $(LOCAL_PATH)/prebuilts/topazhp.cfg:system/etc/topazhp.cfg
+
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
 # Audio configuration file
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(LOCAL_PATH)/prebuilts/audio_policy.conf:system/etc/audio_policy.conf
+
+# Misc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/inv_ipld.prop:system/etc/inv_ipld.prop \
+    $(LOCAL_PATH)/prebuilts/inv_ipld_beta.prop:system/etc/inv_ipld_beta.prop
 
 # Thermal engine
 PRODUCT_COPY_FILES += \
@@ -74,21 +91,29 @@ PRODUCT_COPY_FILES += \
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
+PRODUCT_TAGS += dalvik.gc.type-precise
+
 # Audio
 PRODUCT_PACKAGES += \
-    audiod \
+    audio.primary.default \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
-    tinymix
+    libaudioutils \
+    libtinyalsa \
+    tinyplay \
+    tinycap \
+    tinymix \
+    tinypcminfo
 
-# Camera
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
-
-# Display
+# Bluedroid conf
 PRODUCT_PACKAGES += \
-    libtinyxml
+    libbt-vendor \
+    bt_vendor.conf
+
+# Device state monitor
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/device_state_monitor.conf:system/etc/device_state_monitor.conf
 
 # Fingerprint sensor
 PRODUCT_COPY_FILES += \
@@ -104,12 +129,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Gello
 
-# IPv6
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes \
-    libebtc
-
 # KEYPAD
 PRODUCT_PACKAGES += \
     usbaudio.kl
@@ -121,32 +140,45 @@ PRODUCT_COPY_FILES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.hi3650 \
-    init.61259.rc \
-    init.audio.rc \
-    init.balong_modem.rc \
     init.chip.usb.rc \
-    init.connectivity.bcm43455.rc \
-    init.connectivity.gps.rc \
-    init.connectivity.rc \
-    init.device.rc \
-    init.extmodem.rc \
     init.hi3650.rc \
     init.hi3650.usb.rc \
-    init.hisi.rc \
-    init.manufacture.rc \
-    init.platform.rc \
-    init.post-fs-data.rc \
-    init.target.rc \
-    init.tee.rc \
     ueventd.hi3650.rc
-
-# RIL
-PRODUCT_PACKAGES += \
-    libxml2
 
 # LIBShim
 PRODUCT_PACKAGES += \
-    libshim_cutils
+    libshim_cutils \
+    libshim_exif \
+    libshim_gralloc \
+    libshim_gui
+
+# OpenGL Renderer
+PRODUCT_PACKAGES += \
+    libGLES_android
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.build.subproduct=F2FS \
+    ro.magic.api.version=0.1 \
+    ro.enable_boot_charger_mode=0 \
+    persist.sys.root_access=1 \
+    persist.sys.usb.config=adb \
+    persist.service.adb.enable=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.selinux=0 \
+    persist.sys.root_access=1
+
+# Wifi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    dhcpcd.conf \
+    hostapd \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
