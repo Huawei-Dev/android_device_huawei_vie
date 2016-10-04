@@ -215,36 +215,14 @@ on init
 on fs
     export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/libdmd.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/lib64/libril.so|libshim_ril.so:/system/vendor/lib64/egl/libGLES_mali.so|libshim_cutils.so:/system/lib64/libhwuibp.so|lib_hw_ui.so:/system/lib/hw/gralloc.hi3650.so|libshim_gralloc.so:/system/lib64/hw/gralloc.hi3650.so|libshim_gralloc.so
 
-    wait /dev/block/platform/hi_mci.0/by-name
-    mount_all fstab.hi3650
-
     wait /dev/block/platform/hi_mci.0/by-name/oeminfo
     start oeminfo_nvm
 
-    wait /dev/block/platform/hi_mci.0/by-name/cust
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/cust /cust ro nosuid nodev
+    wait /dev/block/platform/hi_mci.0/by-name
+    mount_all fstab.hi3650
 
-    wait /dev/block/platform/hi_mci.0/by-name/3rdmodem
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/3rdmodem /3rdmodem ro nosuid nodev noatime data=ordered
-
-    wait /dev/block/platform/hi_mci.0/by-name/3rdmodemnvm
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/3rdmodemnvm /3rdmodemnvm rw nosuid nodev noatime data=ordered
-
-    wait /dev/block/platform/hi_mci.0/by-name/3rdmodemnvmbkp
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/3rdmodemnvmbkp /3rdmodemnvmbkp rw nosuid nodev noatime data=ordered
-
-    wait /dev/block/platform/hi_mci.0/by-name/modemnvm_img
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/modemnvm_img /mnvm2:0 rw nosuid nodev noatime data=ordered
-
-    wait /dev/block/platform/hi_mci.0/by-name/modem_om
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/modem_om /modem_log rw nosuid nodev noatime data=ordered
     restorecon_recursive /modem_log
 
-    wait /dev/block/platform/hi_mci.0/by-name/secure_storage
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/secure_storage /sec_storage rw nosuid nodev noatime discard auto_da_alloc mblk_io_submit data=journal
-
-    wait /dev/block/platform/hi_mci.0/by-name/splash2
-    mount ext4 /dev/block/platform/hi_mci.0/by-name/splash2 /splash2 rw nosuid nodev noatime data=ordered
     restorecon /splash2
 
     symlink /splash2 /log
