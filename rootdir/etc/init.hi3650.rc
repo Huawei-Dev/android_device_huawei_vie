@@ -219,7 +219,7 @@ on late-init
     trigger load_all_props_action
 
 on fs
-    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/libdmd.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/lib64/libril.so|libshim_ril.so:/system/vendor/lib64/egl/libGLES_mali.so|libshim_cutils.so:/system/lib64/libhwuibp.so|lib_hw_ui.so:/system/lib/hw/gralloc.hi3650.so|libshim_gralloc.so:/system/lib64/hw/gralloc.hi3650.so|libshim_gralloc.so
+    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/libdmd.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/vendor/lib64/egl/libGLES_mali.so|libshim_cutils.so:/system/lib64/libhwuibp.so|lib_hw_ui.so:/system/lib/hw/gralloc.hi3650.so|libshim_gralloc.so:/system/lib64/hw/gralloc.hi3650.so|libshim_gralloc.so
 
     wait /dev/block/platform/hi_mci.0/by-name/oeminfo
     start oeminfo_nvm
