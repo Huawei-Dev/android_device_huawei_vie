@@ -143,6 +143,7 @@ PRODUCT_PACKAGES += \
     init.chip.usb.rc \
     init.hi3650.rc \
     init.hi3650.usb.rc \
+    init.rc \
     ueventd.hi3650.rc
 
 # LIBShim
