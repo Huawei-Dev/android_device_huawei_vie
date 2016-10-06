@@ -199,25 +199,6 @@ on init
     chown media media /dev/soundtrigger_dma_drv
     chmod 0660 /dev/soundtrigger_dma_drv
 
-
-    chown system system /dev/flp
-    chmod 0660 /dev/flp
-
-    write /dev/cpuctl/ionice.prio 16388
-
-    mkdir /dev/cpuctl/top_visible
-    chown system system /dev/cpuctl/top_visible/tasks
-    chmod 0666 /dev/cpuctl/top_visible/tasks
-    write /dev/cpuctl/top_visible/cpu.shares 10240
-    write /dev/cpuctl/top_visible/cpu.rt_runtime_us 900000
-    write /dev/cpuctl/top_visible/cpu.rt_period_us 1000000
-    write /ls -/ionice.prio 16384
-
-    write /dev/cpuctl/bg_non_interactive/ionice.prio 16391
-
-on late-init
-    trigger load_all_props_action
-
 on fs
     export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/libdmd.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/vendor/lib64/egl/libGLES_mali.so|libshim_cutils.so:/system/lib64/libhwuibp.so|lib_hw_ui.so:/system/lib/hw/gralloc.hi3650.so|libshim_gralloc.so:/system/lib64/hw/gralloc.hi3650.so|libshim_gralloc.so
 
@@ -327,12 +308,6 @@ on post-fs-data
 
     mkdir /data/hisi_logs 0770 root system
     restorecon_recursive /data/hisi_logs
-
-    mkdir /data/misc/radvd 0770 root root
-    mkdir /data/misc/dhcp6s 0770 root root
-
-    mkdir /data/drm/rights 0770 drm drm
-    mkdir /data/drm/widevine 0770 drm drm
 
     chown root system /sys/kernel/exmbist_test/test_entry
     chmod 0664 /sys/kernel/exmbist_test/test_entry
@@ -924,18 +899,6 @@ on boot
     chmod 0660 /sys/class/hw_power/charger/charge_data/voltage_sys
     chmod 0660 /sys/class/hw_power/charger/charge_data/vr_charger_type
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/msg_policy
-    chmod  0660  /sys/devices/platform/fingerprint/read_image_flag
-    chown  system  system  /sys/devices/platform/fingerprint/read_image_flag
-    chmod  0660  /sys/devices/platform/fingerprint/nav
-    chown  system  system  /sys/devices/platform/fingerprint/nav
-
-    setprop ro.config.compatibility_enable 1
-
-    setprop hifi.watchdog.come false
-
-on property:hifi.watchdog.come=true
-    restart media
-    setprop hifi.watchdog.come false
 
 on restart-sdcardfs
     mkdir /data/media 0770 media_rw media_rw    
@@ -1580,11 +1543,6 @@ service bastetd /system/bin/bastetd
     class main
     user root
     group root
-
-service fingerprintd /system/bin/fingerprintd
-    class late_start
-    user system
-    group input
 
 service teecd /sbin/teecd
     socket tee-multi-user stream 660 root system

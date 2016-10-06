@@ -134,6 +134,15 @@ on init
     write /dev/cpuctl/cpu.shares 1024
     write /dev/cpuctl/cpu.rt_runtime_us 800000
     write /dev/cpuctl/cpu.rt_period_us 1000000
+    write /dev/cpuctl/ionice.prio 16388
+
+    mkdir /dev/cpuctl/top_visible
+    chown system system /dev/cpuctl/top_visible/tasks
+    chmod 0666 /dev/cpuctl/top_visible/tasks
+    write /dev/cpuctl/top_visible/cpu.shares 10240
+    write /dev/cpuctl/top_visible/cpu.rt_runtime_us 900000
+    write /dev/cpuctl/top_visible/cpu.rt_period_us 1000000
+    write /dev/cpuctl/top_visible/ionice.prio 16384
 
     mkdir /dev/cpuctl/bg_non_interactive
     chown system system /dev/cpuctl/bg_non_interactive/tasks
@@ -142,6 +151,7 @@ on init
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
     write /dev/cpuctl/bg_non_interactive/cpu.rt_runtime_us 700000
     write /dev/cpuctl/bg_non_interactive/cpu.rt_period_us 1000000
+    write /dev/cpuctl/bg_non_interactive/ionice.prio 16391
 
     # sets up initial cpusets for ActivityManager
     mkdir /dev/cpuset
@@ -211,11 +221,17 @@ on init
     # enable armv8_deprecated instruction hooks
     write /proc/sys/abi/swp 1
 
+    chown system system /dev/flp
+    chmod 0660 /dev/flp
+
 # Healthd can trigger a full boot from charger mode by signaling this
 # property when the power button is held.
 on property:sys.boot_from_charger_mode=1
     class_stop charger
     trigger late-init
+
+on load_all_props_action
+    load_all_props
 
 # Load properties from /system/ + /factory after fs mount.
 on load_system_props_action
@@ -245,7 +261,7 @@ on late-init
     # /data, which in turn can only be loaded when system properties are present
     trigger post-fs-data
     trigger load_persist_props_action
-
+    trigger load_all_props_action
     # Remove a file to wake up anything waiting for firmware.
     trigger firmware_mounts_complete
 
@@ -346,6 +362,8 @@ on post-fs-data
     mkdir /data/local 0751 root root
     mkdir /data/misc/media 0700 media media
     mkdir /data/misc/vold 0700 root root
+    mkdir /data/misc/radvd 0770 root root
+    mkdir /data/misc/dhcp6s 0770 root root
 
     # For security reasons, /data/local/tmp should always be empty.
     # Do not place files or directories in /data/local/tmp
@@ -373,6 +391,9 @@ on post-fs-data
     # create directory for DRM plug-ins - give drm the read/write access to
     # the following directory.
     mkdir /data/drm 0770 drm drm
+
+    mkdir /data/drm/rights 0770 drm drm
+    mkdir /data/drm/widevine 0770 drm drm
 
     # create directory for MediaDrm plug-ins - give drm the read/write access to
     # the following directory.
@@ -481,6 +502,7 @@ on boot
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
+    chown system system /sys/bus/platform/drivers/huawei,camcfgdev/guard_thermal
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
@@ -502,10 +524,23 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
 
+    chown  system  system  /sys/devices/platform/fingerprint/read_image_flag
+    chmod  0660  /sys/devices/platform/fingerprint/read_image_flag
+    chown  system  system  /sys/devices/platform/fingerprint/nav
+    chmod  0660  /sys/devices/platform/fingerprint/nav
+
+    setprop ro.config.compatibility_enable 1
+
     # Define default initial receive window size in segments.
     setprop net.tcp.default_init_rwnd 60
 
     class_start core
+
+    setprop hifi.watchdog.come false
+
+on property:hifi.watchdog.come=true
+    restart media
+    setprop hifi.watchdog.come false
 
 on nonencrypted
     class_start main
@@ -782,3 +817,8 @@ service logcatd /system/bin/logcat -b all -v threadtime -v usec -v printable -D 
     user logd
     group log
     writepid /dev/cpuset/system-background/tasks
+
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
+    group input
