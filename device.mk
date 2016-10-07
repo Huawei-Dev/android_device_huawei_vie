@@ -148,10 +148,8 @@ PRODUCT_PACKAGES += \
 
 # LIBShim
 PRODUCT_PACKAGES += \
-    libshim_cutils \
     libshim_exif \
-    libshim_gralloc \
-    libshim_gui
+    libshim_gralloc
 
 # OpenGL Renderer
 PRODUCT_PACKAGES += \
