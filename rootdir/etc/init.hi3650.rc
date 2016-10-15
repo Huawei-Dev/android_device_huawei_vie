@@ -208,6 +208,8 @@ on fs
     wait /dev/block/platform/hi_mci.0/by-name
     mount_all fstab.hi3650
 
+    mount ext4 /dev/block/platform/hi_mci.0/by-name/cust /cust wait ro nosuid nodev
+
     restorecon_recursive /modem_log
 
     restorecon /splash2
