@@ -106,3 +106,6 @@ ro.config.widevine_level3=true
 drm.service.enabled=true
 ro.hwcamera.brightness_range=4,178
 ro.game.low_audio_effect=true
+
+# Factory reset protection
+ro.frp.pst=/dev/block/platform/hi_mci.0/by-name/frp
