@@ -3,8 +3,8 @@ rild.libpath1=/system/lib64/libbalong-ril.so
 ro.multi.rild=false
 ro.config.hw_save_pin=true
 rild.libargs3=-m modem2
-ro.telephony.default_network=9,9
-ro.telephony.ril.config=simactivation,sim2gsmonly
+ro.telephony.default_network=9
+ro.telephony.ril.config=simactivation
 ro.config.default_commril_mode=CLG_MODE
 ro.config.is_start_commril=true
 rild.libargs2=-m modem1
@@ -13,7 +13,6 @@ rild.libpath2=/system/lib64/libbalong-ril-1.so
 ro.config.full_network_support=true
 rild.libpath3=/system/lib64/libbalong-ril-2.so
 ro.config.hw_device_mode=clg_mode
-persist.radio.multisim.config=dsda
 rild.rild1_ready_to_start=false
 rild.libargs=-d /dev/viacomm_cmux
 ro.config.client_number=5
@@ -69,7 +68,7 @@ ro.hwui.r_buffer_cache_size=8
 
 ro.config.fm_type=libbcmfm_if
 persist.radio.apm_sim_not_pwdn=1
-persist.sys.dualcards=true
+persist.sys.dualcards=false
 ril.hw_modem0.rssi=-1
 ril.hw_modem1.rssi=-1
 ro.cellbroadcast.emergencyids=0-65534
@@ -89,7 +88,7 @@ ro.config.hw_cota=true
 ro.product.cucc.rtsplive=true
 ro.com.android.mobiledata=true
 
-ro.dual.sim.phone=true
+ro.dual.sim.phone=false
 ro.config.lvm_mode=true
 
 ro.config.signalplus.tas=true
