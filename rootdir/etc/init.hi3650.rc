@@ -490,10 +490,6 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
 on boot
-    start HwCamCfgSvr
-    start vr_daemon
-    start tui-daemon
-
     write /sys/kernel/debug/kmemleak scan=14400
     chown radio radio /proc/modemstatus
 
@@ -1043,11 +1039,6 @@ service vr_daemon /system/bin/vr_daemon
     user system
     group system
     socket vr_daemon stream 660 root system graphics
-
-service tui-daemon /system/bin/tui_daemon
-    class main
-    group system
-    socket tui_daemon stream 660 root system graphics	
 
 on property:bluetooth.log.file.create=true
    mkdir /data/hwzd_logs/bt 775 bluetooth net_bt_stack
