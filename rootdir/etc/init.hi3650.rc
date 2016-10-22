@@ -1290,6 +1290,7 @@ service ril-daemon1 /system/bin/rild -c 1
     group radio cache inet misc audio sdcard_r sdcard_rw log
 
 on property:sys.userdata_is_ready=1
+    write /sys/devices/platform/his_modem/modem_sysboot_start 1
     start ril-daemon
 
 on property:rild.rild1_ready_to_start=true
