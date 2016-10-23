@@ -1,58 +1,16 @@
-# Rild
-rild.libpath1=/system/lib64/libbalong-ril.so
-ro.multi.rild=false
-ro.config.hw_save_pin=true
-rild.libargs3=-m modem2
-ro.telephony.default_network=9
-ro.telephony.ril.config=simactivation
-ro.config.default_commril_mode=CLG_MODE
-ro.config.is_start_commril=true
-rild.libargs2=-m modem1
-ro.config.dsds_mode=cdma_gsm
-rild.libpath2=/system/lib64/libbalong-ril-1.so
-ro.config.full_network_support=true
-rild.libpath3=/system/lib64/libbalong-ril-2.so
-ro.config.hw_device_mode=clg_mode
-rild.rild1_ready_to_start=false
-rild.libargs=-d /dev/viacomm_cmux
-ro.config.client_number=5
-rild.libargs1=-m modem0
-ro.config.hw_dsda=true
-rild.libpath=/system/lib64/libvia-ril.so
-persist.dsds.enabled=true
-persist.radio.modem.cap=899BD
-ro.config.modem_number=4
-
+ro.config.mmu_en=1
+dalvik.vm.heapsize=512m
+dalvik.vm.heapstartsize=8m
+dalvik.vm.heapgrowthlimit=384m
+dalvik.vm.heaptargetutilization=0.75
 ro.opengles.version=196609
 ro.sf.lcd_density=480
-
 persist.fw.force_adoptable=true
-
-audioril.lib=libhuawei-audio-ril.so
-
+dalvik.vm.checkjni=false
 ro.bt.bdaddr_path=/data/misc/bluedroid/macbt
-ro.connectivity.chiptype=Broadcom BCM43455
-
+ro.config.keypasstouser=true
 ro.magic.api.version=0.1
-ro.hdmi.service=false
-
-ro.config.hw_music_lp=true
-ro.config.music_lp_vol=true
-ro.tui.service=true
-ro.vr_display.service=true
-
-persist.media.offload.enable=true
-persist.media.usbvoice.enable=true
-persist.media.usbvoice.name=USB-Audio - HUAWEI GLASS
-ro.config.hw_sensorhub=true
-keyguard.no_require_sim=true
-ro.sys.umsdirtyratio=2
-build.hisi_perf_opt=true
-use_sensorhub_labc=false
-bastet.service.enable=true
-sys.refresh.dirty=1
-ro.config.hw_perfhub=true
-
+ro.product.platform.pseudonym=1ARB9CV
 ro.hwui.texture_cache_size=48
 ro.hwui.texture_cache_flushrate=0.4
 ro.hwui.layer_cache_size=48
@@ -65,10 +23,23 @@ ro.hwui.text_large_cache_width=2048
 ro.hwui.text_small_cache_height=1024
 ro.hwui.text_small_cache_width=1024
 ro.hwui.r_buffer_cache_size=8
+debug.hwui.render_dirty_regions=false
+ro.tui.service=true
+ro.vr_display.service=true
+ro.bt.bdaddr_path=/data/misc/bluedroid/macbt
+ro.connectivity.chiptype=Broadcom BCM43455
+persist.media.offload.enable=true
+persist.media.usbvoice.enable=true
+persist.media.usbvoice.name=USB-Audio - HUAWEI GLASS
+ro.config.hw_sensorhub=true
+ro.sys.umsdirtyratio=2
+build.hisi_perf_opt=true
+use_sensorhub_labc=false
+bastet.service.enable=true
+sys.refresh.dirty=1
+ro.config.hw_perfhub=true
+ro.sys.fw.bservice_enable=true
 
-ro.config.fm_type=libbcmfm_if
-persist.radio.apm_sim_not_pwdn=1
-persist.sys.dualcards=false
 ril.hw_modem0.rssi=-1
 ril.hw_modem1.rssi=-1
 ro.cellbroadcast.emergencyids=0-65534
@@ -81,14 +52,12 @@ ro.config.updatelocation=true
 ro.ril.ecclist=112,911,#911,*911
 ro.check.modem_network=true
 ro.config.ipv4.mtu=1400
-gsm.fastdormancy.mode=3
-ro.config.hw_hotswap_on=true
-ro.config.hw_cota=true
 
-ro.product.cucc.rtsplive=true
-ro.com.android.mobiledata=true
-
-ro.dual.sim.phone=false
+ro.config.hw_gps_power_track=true
+ro.config.hw_smartcardservice=true
+ro.config.hw_support_geofence=true
+ro.config.hw_touchplus_enabled=false
+ro.dual.sim.phone=true
 ro.config.lvm_mode=true
 
 ro.config.signalplus.tas=true
@@ -96,7 +65,7 @@ ro.config.signalplus.xpass=true
 ro.config.linkplus.roaming=true
 ro.config.linkplus.liveupdate=true
 
-hw.display.acl_support=true
+ro.config.mm_socket_ctrl=1
 
 media.stagefright.use-awesome=false
 ro.config.hw_dts=true
@@ -104,9 +73,40 @@ ro.config.hw_media_flags=3
 ro.config.widevine_level3=true
 drm.service.enabled=true
 ro.hwcamera.brightness_range=4,178
-ro.game.low_audio_effect=true
 
-# Factory reset protection
+ro.com.android.mobiledata=true
+
+hw.display.acl_support=true
+
+persist.sys.fingersense=1
+ro.hardware.alter=Hisilicon Kirin 955
+
+# local
+ro.config.hw_lte_support=true
+ro.dual.sim.phone=false
+persist.sys.dualcards=false
+ro.config.hw_sim2airplane=false
 ro.frp.pst=/dev/block/platform/hi_mci.0/by-name/frp
+ro.config.hw_camera_nfc_switch=true
+ro.config.spare_ntp_server=ntp.sjtu.edu.cn,time.windows.com,time.nist.gov,1.cn.pool.ntp.org
+ro.config.enable_rms=false
+gsm.fastdormancy.mode=0
+ro.config.hw_rcs_vs_is=2
+ro.config.hw_rcs_product=true
+ro.config.hw_channel_info=0,0,0,0
+
+# Rild
+ro.multi.rild=false
+rild.libargs=-m modem0
+ro.config.hw_dsda=false
+persist.radio.modem.cap=899BD
+ro.telephony.default_network=9
+rild.rild1_ready_to_start=false
+ro.config.dsds_mode=umts
+ro.config.reduce_sar_type1=001
+rild.libpath=/system/lib64/libbalong-ril.so
+persist.dsds.enabled=false
 
 ro.telephony.ril_class=HwHisiRIL
+audioril.lib=libhuawei-audio-ril.so
+persist.radio.apm_sim_not_pwdn=1
