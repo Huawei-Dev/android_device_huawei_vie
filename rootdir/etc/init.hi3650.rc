@@ -1005,7 +1005,7 @@ on charger
     write /sys/kernel/set_hmp_thresholds/enable 0
     write /sys/kernel/hmp/up_threshold 1024
     write /sys/kernel/hmp/down_threshold 1023
-    write /sys/class/devfreq/ddrfreq/max_freq 533000000
+    write /sys/class/devfreq/ddrfreq/max_freq 1333000000
     write /sys/class/devfreq/ddrfreq/min_freq 120000000
     write /sys/class/devfreq/ddrfreq_up_threshold/max_freq 1333000000
     write /sys/class/devfreq/ddrfreq_up_threshold/min_freq 120000000
