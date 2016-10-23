@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <!--
+ * Copyright (C) 2014 Huawei Inc.
+ * Cpu Freq Config
+ *
+                TYPE                                            AVALIABLE_VALUE
+        cpu_maxprofile                    480000 807000 1018000 1306000 1517000 1805000
+        cpu_minprofile                    480000 807000 1018000 1306000 1517000 1805000
+
+        cpu_a15_maxprofile                480000 807000 1210000 1517000 1805000 2016000 2304000
+        cpu_a15_minprofile                480000 807000 1210000 1517000 1805000 2016000 2304000
+
+        gpu_maxprofile                    120000000 240000000 360000000 480000000 650000000 800000000 900000000
+        gpu_minprofile                    120000000 240000000 360000000 480000000 650000000 800000000 900000000
+
+        ddr_maxprofile                    120000000 240000000 360000000 533000000 800000000 933000000
+        ddr_minprofile                    120000000 240000000 360000000 533000000 800000000 933000000
+
+        cpu_number_max                    1,2,3,4
+        cpu_number_min                    1,2,3,4
+        cpu_a15_number_max                0,1,2,3,4
+        cpu_a15_number_min                0,1,2,3,4
+
+-->
+
+<!-- scene id
+
+id >= 100000  cust config, white list
+ -->
+
+<thermal version="2.3">
+    <scene name="power_off_charging_ctrl" id="110000">
+         <sensor_temp name="ucurrent" type="2" enable="true" min_temp="0" step="5" to_celsius="1">
+            <item>
+                <thresholds>44</thresholds>
+                <thresholds_clr>40</thresholds_clr>
+                <action>
+                    <ucurrent>800</ucurrent>
+                    <bcurrent>0</bcurrent>
+                    <ucurrent_aux>450</ucurrent_aux>
+                    <bcurrent_aux>0</bcurrent_aux>
+                </action>
+            </item>
+            <item>
+                <thresholds>47</thresholds>
+                <thresholds_clr>45</thresholds_clr>
+                <action>
+                    <ucurrent>600</ucurrent>
+                    <bcurrent>0</bcurrent>
+                    <ucurrent_aux>300</ucurrent_aux>
+                    <bcurrent_aux>0</bcurrent_aux>
+                </action>
+            </item>
+            <item>
+                <thresholds>50</thresholds>
+                <thresholds_clr>48</thresholds_clr>
+                <action>
+                    <ucurrent>400</ucurrent>
+                    <bcurrent>0</bcurrent>
+                    <ucurrent_aux>200</ucurrent_aux>
+                    <bcurrent_aux>0</bcurrent_aux>
+                </action>
+            </item>
+         </sensor_temp>
+    </scene>    
+</thermal>

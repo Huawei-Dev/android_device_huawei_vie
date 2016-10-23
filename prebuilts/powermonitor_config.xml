@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2013 Huawei Inc.
+ * the configuration is for power monitor.
+ * including scene current and switches etc.
+ -->
+
+<powermonitor_config version="1.4">
+    <!-- scene current confirguration -->
+	<scene_current_switch>
+        <item name="ebook" id="10003" current="332"/>
+        <item name="game3d" id="10002" current="600"/>
+        <item name="game2d" id="10011" current="295"/>
+        <item name="camera" id="10007" current="647"/>
+        <item name="browser" id="10001" current="389"/>
+        <item name="launcher" id="10010" current="180"/>
+        <item name="screen_off" id="3004" current="14"/>
+        <item name="video_play" id="10009" current="301"/>
+        <array name="max.elecquantity.node"> <!-- such as max battery elecquantity for mate is 4000mAh -->
+            <arrayItem>/sys/class/power_supply/Battery/capacity_fcc</arrayItem>
+            <arrayItem>/sys/class/power_supply/bms/charge_full_design</arrayItem>
+        </array>
+        <!-- powermonitor functions switch configuration -->
+        <!-- the switch to open normal power log -->
+        <bool config_isOpenNormalLog="true"/>
+        <!-- the switch to open screen off power abnormal Log -->
+        <bool config_isOpenScrOffLog="true"/>
+        <!-- the switch to open day act power abnormal Log -->
+        <bool config_isOpenDayActLog="true"/>
+        <!-- the switch to transfer android Log -->
+        <bool config_isOpenAndroidLog="true"/>
+        <!-- the power gate of screen off power abnormal -->
+        <integer config_scrOffPowerGate="4"/>
+        <!-- the duration time of screen off power abnormal -->
+        <integer config_scrOffDuration="4"/>
+        <!-- the power gate of day act power abnormal -->
+        <integer config_dayActPowerGate="60"/>
+	</scene_current_switch>
+
+    <scrn_off_bat_drop stats_hours="4" bat_drop_percent="4" enabled="true">
+    </scrn_off_bat_drop>
+
+    <phone_temp_monitor scrn_on_interval_ms="10000" scrn_off_interval_ms="20000" enabled="true">
+        <temp_sensor uniform_name="system_h" trigger_temp="44">
+            <action save_top_info="true" save_app_log="true" save_kmsg_log="true" save_ril_log="false" />
+        </temp_sensor>
+        <temp_sensor uniform_name="pa_0" trigger_temp="42">
+            <action save_top_info="false" save_app_log="true" save_kmsg_log="true" save_ril_log="true" />
+        </temp_sensor>
+        <temp_sensor uniform_name="charger" trigger_temp="42">
+            <action save_top_info="true" save_app_log="false" save_kmsg_log="false" save_ril_log="false" />
+        </temp_sensor>
+    </phone_temp_monitor>
+
+    <thermal_sensor_device_node enabled="false"> <!--enabled for qualcomm platform, not need for hisi_like platform-->
+        <sensor_map hisi_name="system_h" mapped_node="/sys/module/qpnp_adc_voltage/parameters/therm_cpu"/>
+        <sensor_map hisi_name="pa_0" mapped_node="/sys/module/qpnp_adc_voltage/parameters/therm_pa"/>
+    </thermal_sensor_device_node>
+
+	<period_check check_time_base="120000"> <!--10 mins-->
+		<check_item name="powergenie_mode" check_type="property" value_type="string" record_type="times_detected" period_times="1">
+			<data_src>persist.sys.smart_power</data_src>
+		</check_item>
+		<check_item name="backlight" check_type="device_node" value_type="integer" record_type="times_per_region" period_times="1">
+			<data_src>/sys/class/leds/lcd_backlight0/brightness</data_src>
+		</check_item>
+		<check_item name="discharging" check_type="device_node" value_type="integer" record_type="times_per_region" period_times="1">
+			<data_src>/sys/class/power_supply/Battery/current_now</data_src>
+		</check_item>
+	</period_check>
+
+	<earlyalarm>
+		<exception>
+			<!--  battery 60% in 24 hours (86400 seconds) -->
+			<item name="daypower" timespan="24H" samplingrate="10M" threshold="70" unit="percent"/>
+		</exception>
+
+		<subexception>
+			<!--  screen on 4h in 24 hours -->
+			<item name="screentime" timespan="24H" samplingrate="60S" threshold="4" unit="hour"/>
+			<!--  screen power consumption > 500mAH -->
+			<item name="screenpower" timespan="24H" samplingrate="20M" threshold="500" unit="mAh"/>
+			<!--  alarm 12 times in 1 hour -->
+			<item name="alarm" timespan="1H" samplingrate="0" threshold="12" unit="times"/>
+			<!--  not modem sleep in 1 hour -->
+			<item name="modemsleep" timespan="1H" samplingrate="60S" threshold="0" unit="times"/>
+			<!--  modem reason 5 times in 1 hour -->
+			<item name="modemreason" timespan="1H" samplingrate="60S" threshold="5" unit="times"/>
+			<!--  iom3 no sleep in 1 hour -->
+			<item name="iom3sleep" timespan="1H" samplingrate="60S" threshold="0" unit="times"/>
+			<!--  fail to suspend component, 5 times in 1 hour -->
+			<item name="suspendfail" timespan="1H" samplingrate="0" threshold="5" unit="times"/>
+			<!--  net switch, 5 times in 1 hour -->
+			<item name="netswitch" timespan="1H" samplingrate="60S" threshold="5" unit="times"/>
+			<!--  any wakelock > 1 hour -->
+			<item name="wakelocktime" timespan="24H" samplingrate="5M" threshold="60" unit="minute"/>
+			<!--  restart 6 times in 1 hour -->
+			<item name="restarttime" timespan="1H" samplingrate="60S" threshold="5" unit="times"/>
+			<!--  app power consumption 100mAh in 1 hour -->
+			<item name="pkgmah" timespan="1H" samplingrate="60S" threshold="50" unit="mAh"/>
+			<!--  app power consumption > 500mAh in 24 hour -->
+			<item name="pkgtotalmah" timespan="24H" samplingrate="20M" threshold="500" unit="mAh"/>
+			<!--  app data traffic > 30M in 1 hour -->
+			<item name="pkgdata" timespan="1H" samplingrate="60S" threshold="30" unit="MB" />
+			<!--  app data traffic > 60M in 24 hour -->
+			<item name="pkgtotaldata" timespan="24H" samplingrate="20M" threshold="60" unit="MB"/>
+			<!--  app wifi traffic > 100M in 1 hour -->
+			<item name="pkgwifi" timespan="1H" samplingrate="60S" threshold="100" unit="MB"/>
+			<!--  app wifi traffic > 500M in 24 hour -->
+			<item name="pkgtotalwifi" timespan="24H" samplingrate="20M" threshold="500" unit="MB"/>
+			<!--  gps available > 1 hour -->
+			<item name="pkggps" timespan="24H" samplingrate="5M" threshold="60" unit="minute"/>
+			<!--  radio standby power consumption > 200 mAh in 24 hour -->
+			<item name="radio" timespan="24H" samplingrate="20M" threshold="200" unit="mAh"/>
+			<!--  netstate week < -100db -->
+			<item name="netstate" timespan="24H" samplingrate="60S" threshold="-100" unit="dB"/>
+		</subexception>
+	</earlyalarm>
+</powermonitor_config>
+
